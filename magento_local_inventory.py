@@ -139,5 +139,14 @@ store_magento = store_magento[~store_magento['id'].isin(noffer['no-found'].astyp
 #%%
 store_magento.to_csv('calgary LIA.tsv', sep='\t', index=False)
 # %%
-repository =
 local = 
+repository = 'https://github.com/solomon789563/Google-Merchant-Centre'
+local = 'C:\\Users\\SolomonChang\\Downloads\\Python Scripts\\Google-Merchant-Centre'
+file = 'C:\\Users\SolomonChang\\Downloads\\Python Scripts\\Google-Merchant-Centre\\calgary LIA.tsv'
+commit_message = 'New LIA file test'
+repo = Repo(local)
+repo.index.add([file])
+repo.index.commit(commit_message)
+origin = repo.remote(name='origin')
+origin.push()
+# %%
