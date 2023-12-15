@@ -12,6 +12,7 @@ from datetime import datetime
 import pytz
 import os 
 from git import Repo
+from io import StringIO
 # %%
 def get_url_file(url):
     get_url = requests.get(url)
