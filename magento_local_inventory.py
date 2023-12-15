@@ -13,6 +13,15 @@ import pytz
 import os 
 from git import Repo
 # %%
+def get_url_file(url):
+    get_url = requests.get(url)
+    if get_url.status_code == 200:
+        content = get_url.text
+        url_file = pd.read_csv(StringIO(content), sep='\t')
+        return url_file
+    else:
+        print('request failed')
+
 def get_token():
     URL = 'https://www.homesalive.ca'
     endpoint = '/rest/V1/integration/admin/token'
@@ -131,11 +140,9 @@ store_magento['pickup_sla'] = 'same day'
 #%%
 store_magento = store_magento[['store_code','id','availability','price', 'sale_price','sale_price_effective_date']]
 # %%
-noffer = pd.read_csv('no-offer.csv')
+noffer = get_url_file('https://www.homesalive.ca/media/feeds/feed_1.txt')
 #%%
-print(noffer['no-found'].dtype)
-#%%
-store_magento = store_magento[~store_magento['id'].isin(noffer['no-found'].astype(str))]
+store_magento = store_magento[store_magento['id'].isin(noffer['id'].astype(str))]
 #%%
 store_magento.to_csv(r'C:/Users/SolomonChang/Downloads/Python Scripts/Google-Merchant-Centre/calgary LIA.tsv', sep='\t', index=False)
 # %%
