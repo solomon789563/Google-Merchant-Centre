@@ -13,6 +13,9 @@ import pytz
 import os 
 from git import Repo
 from io import StringIO
+import importlib
+#%%
+importlib.reload(magento_config)
 # %%
 def get_url_file(url):
     get_url = requests.get(url)
