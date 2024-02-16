@@ -137,12 +137,14 @@ for x, y, v in zip(storeid, business_id, store_name):
     store_magento['store_code'] = y
     store_magento['pickup_method'] = 'buy'
     store_magento['pickup_sla'] = 'same day'
+    store_magento = store_magento[['store_code','id','availability','price', 'sale_price','sale_price_effective_date']]
     noffer = get_url_file('https://www.homesalive.ca/media/feeds/feed_1.txt')
     store_magento = store_magento[store_magento['id'].isin(noffer['id'].astype(str))]
     store_magento.to_csv(f'C:/Users/SolomonChang/Downloads/Python Scripts/Google-Merchant-Centre/{v} LIA.tsv', sep='\t', index=False)
     testdf.append(store_magento)
 
 testdf2 = pd.concat(testdf, ignore_index = True)
+testdf2.to_csv(f'C:/Users/SolomonChang/Downloads/Python Scripts/Google-Merchant-Centre/Edmonton LIA.tsv', sep='\t', index=False)
 conn.close()
 # %%
 repository = 'https://github.com/solomon789563/Google-Merchant-Centre'
